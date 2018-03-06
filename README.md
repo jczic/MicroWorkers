@@ -1,5 +1,7 @@
 ### MicroWorkers is a class that easily manages a pool of threads to optimise simultaneous jobs and jobs endings, for MicroPython (used on ESP32 and [Pycom](http://www.pycom.io) modules)
 
+![HC²](hc2.png "HC²")
+
 Very easy to integrate and very light with one file only :
 - `"microWorkers.py"`
 
