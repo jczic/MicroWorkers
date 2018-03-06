@@ -38,7 +38,7 @@ for i in range(5) :
 ### Example of using multiple jobs (with finished event) :
 ```python
 from microWorkers import MicroWorkers
-from time		  import sleep
+from time         import sleep
 
 print()
 
