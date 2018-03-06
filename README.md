@@ -21,7 +21,7 @@ Simple but effective :
 ### Simple example :
 ```python
 from microWorkers import MicroWorkers
-from time		  import sleep
+from time         import sleep
 
 def sleepJob(jobName, jobArg) :
 	sleep(10)
