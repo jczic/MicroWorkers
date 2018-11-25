@@ -69,7 +69,10 @@ class MicroWorkers :
                              'func'   : function,
                              'arg'    : arg,
                              'cbFunc' : onFinished } )
-        self._workersLock.release()
+        try :
+            self._workersLock.release()
+        except :
+            pass
 
     # ----------------------------------------------------------------------------
 
