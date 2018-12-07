@@ -14,19 +14,15 @@ class MicroWorkers :
     def _workerThreadFunc(self, arg) :
         threadID = _thread.get_ident()
         print('[THREAD %s] - Starts' % threadID)
-        while(True) :
+        while True :
             self._workersLock.acquire()
             try :
-                job = self._jobs.pop(0)
+                jobName, jobFunc, jobArg, jobCBFunc = self._jobs.pop(0)
             except :
-                job = None
+                jobFunc = None
                 self._workersLock.acquire()
             self._workersLock.release()
-            if job :
-                jobName   = job['name']
-                jobFunc   = job['func']
-                jobArg    = job['arg']
-                jobCBFunc = job['cbFunc']
+            if jobFunc :
                 print('[THREAD %s] - Starts job %s' % (threadID, jobName))
                 try :
                     jobResult = jobFunc(jobName, jobArg)
@@ -65,14 +61,12 @@ class MicroWorkers :
     # ============================================================================
 
     def AddJob(self, name, function, arg=None, onFinished=None) :
-        self._jobs.append( { 'name'   : name,
-                             'func'   : function,
-                             'arg'    : arg,
-                             'cbFunc' : onFinished } )
-        try :
-            self._workersLock.release()
-        except :
-            pass
+        if function :
+            self._jobs.append( (name, function, arg, onFinished) )
+            try :
+                self._workersLock.release()
+            except :
+                pass
 
     # ----------------------------------------------------------------------------
 
