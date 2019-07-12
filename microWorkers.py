@@ -49,8 +49,7 @@ class MicroWorkers :
         self._workersLock  = _thread.allocate_lock()
         self._jobs         = [ ]
         if workersCount > 0 :
-            originalStackSize = _thread.stack_size()
-            _thread.stack_size(workersStackSize)
+            originalStackSize = _thread.stack_size(workersStackSize)
             print('Create a pool of %s thread(s) :' % workersCount)
             for x in range(workersCount) :
                 _thread.start_new_thread(self._workerThreadFunc, (None, ))
