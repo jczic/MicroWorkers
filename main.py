@@ -1,27 +1,32 @@
 
 from microWorkers import MicroWorkers
-from time		  import sleep
+from time         import sleep
 
 print()
 
-def jobTest1(jobName, jobArg) :
-	sleep(1)
-	return '%s:OK:1s' % jobName
+def jobA(jobName, jobArg) :
+    sleep(1)
+    return '%s:OK:1s' % jobName
 
-def jobTest2(jobName, jobArg) :
-	sleep(3)
-	return '%s:OK:3s' % jobName
+def jobB(jobName, jobArg) :
+    sleep(2)
+    return '%s:OK:2s' % jobName
 
-def jobTest3(jobName, jobArg) :
-	sleep(5)
-	return '%s:OK:5s' % jobName
+def jobC(jobName, jobArg) :
+    sleep(3)
+    return '%s:OK:3s' % jobName
 
 def jobFinished(jobName, jobArg, jobResult) :
-	print('Job %s finished (%s)' % (jobName, jobResult))
+    print('Job %s finished (%s)' % (jobName, jobResult))
 
-workers = MicroWorkers(workersCount=3)
+workers = MicroWorkers(workersCount=5)
 
 for x in range(5) :
-	workers.AddJob('Test1', jobTest1, arg=None, onFinished=jobFinished)
-	workers.AddJob('Test2', jobTest2, arg=None, onFinished=jobFinished)
-	workers.AddJob('Test3', jobTest3, arg=None, onFinished=jobFinished)
+    workers.AddJob('JobA.%s' % x, jobA, arg=None, onFinished=jobFinished)
+    workers.AddJob('JobB.%s' % x, jobB, arg=None, onFinished=jobFinished)
+    workers.AddJob('JobC.%s' % x, jobC, arg=None, onFinished=jobFinished)
+
+# Waiting end of all jobs,
+while workers.IsWorking :
+    sleep(0.100)
+
